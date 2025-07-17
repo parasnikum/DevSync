@@ -5,12 +5,12 @@ We welcome all kinds of contributions — from code improvements and documentati
 
 ## 📋 Table of Contents
 
-- [Getting Started](#Getting-Started)
-- [How to Contribute](#How-to-Contribute)
-- [Code Guidelines](#Code-Guidelines)
-- [Submitting Changes](#Submitting-Changes)
-- [Reporting Issues](#Reporting-Issues)
-- [Community Standards](#Community-Standards)
+- [Getting Started](#-Getting-Started)
+- [How to Contribute](#-How-to-Contribute)
+- [Code Guidelines](#-Code-Guidelines)
+- [Submitting Changes](#-Submitting-Changes)
+- [Reporting Issues](#-Reporting-Issues)
+- [Community Standards](#-Community-Standards)
 
 ---
 
