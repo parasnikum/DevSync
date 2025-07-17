@@ -11,13 +11,15 @@
 
 - [🚀 Overview](#-overview)
 - [🧩 Features](#-features)
-- [🛠 Tech Stack](#-Tech-Stack)
+- [🏗 Tech Stack](#-Tech-Stack)
 - [📸 Screenshots (Coming Soon)](#-screenshots-coming-soon)
-- [🛠 Setup & Installation](#-Setup-&-Installation)
+- [🛠 Setup & Installation](#️-setup--installation)
 - [📁 Folder Structure](#-folder-structure)
 - [🤝 Contributing](#-Contributing)
 - [📜 License](#-License)
 - [📄 Code of Conduct](#-code-of-conduct)
+- [👩‍💻 Maintained by](#-maintained-by)
+- [⭐ Support This Project](#-support-this-project)
 
 ---
 
