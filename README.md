@@ -11,11 +11,12 @@
 
 - [🚀 Overview](#-overview)
 - [🧩 Features](#-features)
+- [🛠 Tech Stack](#-Tech-Stack)
 - [📸 Screenshots (Coming Soon)](#-screenshots-coming-soon)
-- [🛠 Setup & Installation](#-setup--installation)
+- [🛠 Setup & Installation](#-Setup-&-Installation)
 - [📁 Folder Structure](#-folder-structure)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
+- [🤝 Contributing](#-Contributing)
+- [📜 License](#-License)
 - [📄 Code of Conduct](#-code-of-conduct)
 
 ---
@@ -33,7 +34,7 @@ Whether you're preparing for internships, building a personal brand, or just sta
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
 - 📈 **Unified Developer Insights**  
   Automatically fetches and visualizes data like problems solved, contributions, commits, issues, ratings, and more.
@@ -67,26 +68,45 @@ Whether you're preparing for internships, building a personal brand, or just sta
 
 ---
 
-## 🛠️ Getting Started
+
+## 🛠️ Setup & Installation
+
+### 1. Clone the Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-username/DevSync.git
-
-# Move into the project directory
 cd DevSync
 
-# Install frontend and backend dependencies
-npm install
+```
 
-# Run in development mode
+### 2. Setup Frontend
+```bash 
+#move into the frontend directory
+cd frontend
+#install frontend dependencies
+npm install
+# Run the app
 npm run dev
+```
+Your frontend app should now be running at: http://localhost:5173
+
+### 3. Setup backtend
+```bash 
+#move into the backend directory
+cd backend
+#install backend dependencies
+npm install
+# Run the app
+npm run dev
+```
+Your frontend app should now be running at: http://localhost:5000
+
 
 ```
 ## 📁 Folder Structure
 
 ```text
-DevTime/
+DevSync/
 ├── client/                # Frontend (React + Shadcn UI)
 ├── server/                # Backend (Node.js + Express)
 ├── CONTRIBUTING.md        # How to contribute
@@ -94,3 +114,42 @@ DevTime/
 ├── LICENSE                # MIT License
 └── README.md              # Project overview
 ```
+
+---
+
+## 🤝 Contributing
+
+New here? Want to help improve **DevSync**?  
+Check out our [Contributing Guide](./CONTRIBUTING.md) to get started — we welcome all ideas, feedback, and pull requests!
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+## 📄 Code of Conduct
+
+We follow a strict [Code of Conduct](./CODE_OF_CONDUCT.md) to foster an open and inclusive environment.  
+Please review it before participating in discussions or contributing.
+
+---
+
+## 👩‍💻 Maintained by
+
+**Annanya Tiwary**  
+[GitHub Profile](https://github.com/Annanyatiwary4)
+
+---
+
+## ⭐ Support This Project
+
+If you found this project helpful, inspiring, or cool:
+
+- Give it a ⭐️ on [GitHub](https://github.com/Annanyatiwary4/DevSync.git)
+- Share it with your friends and fellow developers!
+- Contribute ideas, raise issues, or submit pull requests
+
+Together, let's build something amazing for the developer community 🚀
