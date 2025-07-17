@@ -1,4 +1,6 @@
 # 🚀 DevSync — Developer Productivity Dashboard
+> _"From pull requests to pomodoros — DevSync's got you covered."_ 
+> _Stay ahead. Stay synced. Stay **DevSynced**._
 
 **DevSync** is a unified productivity tracker for developers. It aggregates your coding activity, daily goals, and contribution metrics from various platforms into a single, elegant dashboard — designed to help you track growth, stay consistent, and showcase your development journey.
 
