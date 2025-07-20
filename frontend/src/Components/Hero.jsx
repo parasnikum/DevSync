@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="w-full min-h-[80vh] bg-[#A4C7E6] px-6 flex justify-center items-center backdrop-blur-xl rounded-3xl border border-white/30 shadow-xl">
+    <section id="home" className="w-full min-h-[80vh] bg-[#A4C7E6] px-6 flex justify-center items-center backdrop-blur-xl rounded-3xl border border-white/30 shadow-xl">
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}

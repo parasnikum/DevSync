@@ -5,7 +5,7 @@ import { FloatingNav } from "../ui/floating-navbar";
 const navItems = [
   {
     name: "Home",
-    link: "/",
+    link: "/home",
     icon: <Home className="h-4 w-4" />,
   },
   {
@@ -15,7 +15,7 @@ const navItems = [
   },
   {
     name: "About us",
-    link: "#info",
+    link: "#about",
     icon: <Info className="h-4 w-4" />,
   },
   {

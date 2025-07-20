@@ -1,18 +1,42 @@
 // src/App.jsx
-import { FeaturesSection } from "./Components/Features";
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar/Navbar";
+import About from "./Components/About";
+import AdStrip from "./Components/Ad";
+import { FeaturesSection } from "./Components/Features";
+import Footer from "./Components/footer";
+import ScrollRevealWrapper from "./Components/ui/ScrollRevealWrapper";
 
 function App() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#E4ECF1] to-[#D2DEE7] relative overflow-hidden">
+    <div className="min-h-screen w-full bg-gradient-to-b from-[#E4ECF1] to-[#D2DEE7] scroll-smooth overflow-hidden">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
       <main className="relative z-10 px-4 py-24">
-        <Hero />
-        <FeaturesSection />
+
+        <ScrollRevealWrapper>
+          <div id="home">
+            <Hero />
+          </div>
+        </ScrollRevealWrapper>
+
+        <ScrollRevealWrapper delay={0.1}>
+          <AdStrip />
+        </ScrollRevealWrapper>
+
+        <ScrollRevealWrapper delay={0.2}>
+          <div id="features">
+            <FeaturesSection />
+          </div>
+        </ScrollRevealWrapper>
+
+        <div id="about">
+          <About />
+        </div>
+
+        <Footer />
       </main>
     </div>
   );
