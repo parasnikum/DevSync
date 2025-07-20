@@ -152,7 +152,7 @@ Please review it before participating in discussions or contributing.
 
 If you found this project helpful, inspiring, or cool:
 
-- Give it a ⭐️ on [GitHub](https://github.com/Annanyatiwary4/DevSync.git)
+- Give it a ⭐️ on [GitHub](https://github.com/DevSyncx/DevSync.git)
 - Share it with your friends and fellow developers!
 - Contribute ideas, raise issues, or submit pull requests
 
