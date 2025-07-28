@@ -9,7 +9,10 @@ We welcome all kinds of contributions — from code improvements and documentati
 - [How to Contribute](#-How-to-Contribute)
 - [Code Guidelines](#-Code-Guidelines)
 - [Submitting Changes](#-Submitting-Changes)
-- [Reporting Issues](#-Reporting-Issues)
+- [Reporting Bugs](#-reporting-bugs)
+- [Requesting Features or Enhancements](#-requesting-features-or-enhancements)
+- [Improving Documentation](#-improving-documentation)
+- [Levels](#-labels-and-levels)
 - [Community Standards](#-Community-Standards)
 
 ---
@@ -93,16 +96,47 @@ git push origin feature/your-feature-name
 
 ---
 
-## 🐛 Reporting Issues
+### 🐞 Reporting Bugs
+Please include the following in your bug reports:
 
-Found a bug or want to request a feature?
+- ✅ **Clear and descriptive title** of the bug.
+- 📝 A short explanation of what’s broken.
+- 🔍 **File name & line number**, if possible.
+- 🆚 Describe **expected vs actual behavior**.
+- 📷 Add **screenshots or screen recordings** (if applicable).
+- 🔁 Include **steps to reproduce** the issue.
 
-- Go to the [Issues](../../issues) tab.
-- Open a **new issue** with a clear title and detailed description.
-- For bugs, include steps to reproduce and any relevant screenshots or logs.
-- For feature requests, explain the motivation and expected behavior clearly.
+### 🌟 Requesting Features or Enhancements
+Want to suggest something cool or improve the UX/UI? Here’s what to include:
+
+- ✅ A descriptive **title** and a clear explanation of the idea.
+- 💡 Explain **why it’s useful** or needed.
+- 🖼️ Include **mockups or screenshots** if it's a UI/UX feature.
+- 🔗 If related to backend/API, mention the **endpoints or data flow**.
+
+### 📚 Improving Documentation
+Spotted unclear, outdated, or missing documentation?
+
+- ✏️ Point out the exact **section or file** to update.
+- 🧩 Suggest or provide improved content.
+- 💬 Ask for clarification in case something is confusing.
+
+### 🏷️ Labels and Levels
+All issues are tagged to help contributors choose wisely:
+
+| Level   | Suitable For        | Points |
+|---------|---------------------|--------|
+| `L-1`   | Beginners            | 3      |
+| `L-2`   | Intermediate tasks   | 5      |
+| `L-3`   | Advanced/complex     | 10     |
+
+
+**🗣️ To claim an issue**, comment:  
+`I want to work on this.`  
+We'll assign it to you if it's unclaimed!
 
 ---
+
 ## 🌐 Community Standards
 
 We expect all contributors to follow our [Code of Conduct](./CODE_OF_CONDUCT.md) to foster an inclusive and respectful community.
