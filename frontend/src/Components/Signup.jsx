@@ -84,20 +84,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#A4C7E6] flex items-center justify-center p-4">
-      {/* Only the background color changed - everything else uses homepage colors */}
-      <div className="w-full max-w-md">
-        {/* Back to Home Button - Using homepage text color */}
-        <div className="mb-6">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-[#1D3557] hover:text-[#1D3557]/80 transition duration-200"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-        </div>
+    <div className="min-h-screen bg-[#A4C7E6] flex items-center justify-center p-4 relative">
+      {/* Back to Home Button - Positioned in left corner as requested */}
+      <Link
+        to="/"
+        className="fixed top-6 left-6 z-10 flex items-center gap-2 text-[#1D3557] hover:text-[#1D3557]/80 transition duration-200 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to Home
+      </Link>
 
+      <div className="w-full max-w-md">
         {/* Card using homepage styling */}
         <div className="bg-card backdrop-blur-xl border border-border rounded-3xl shadow-xl p-8">
           {/* Header - Using homepage text colors */}
