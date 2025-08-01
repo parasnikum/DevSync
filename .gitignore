@@ -87,5 +87,5 @@ uploads/
 exported/
 screenshots/
 
-node_modules
-.env.example
+node_modules/
+# .env.example
