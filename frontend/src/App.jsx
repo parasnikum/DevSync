@@ -36,6 +36,7 @@ function App() {
     );
   }
 
+}
 // Home component that contains the main landing page content
 function Home() {
   return (
@@ -95,5 +96,4 @@ function App() {
     </Routes>
   );
 }
-
 export default App;
