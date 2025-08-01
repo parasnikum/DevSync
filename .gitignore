@@ -74,18 +74,5 @@ jest-*
 *.db-wal
 *.db-shm
 
-# === Optional: Ignore deployment / secret config === #
-*.key
-*.pem
-*.crt
-.vercel/
-.netlify/
-firebase-debug.log
-
-# === Optional: Ignore project-specific uploads or exports === #
-uploads/
-exported/
-screenshots/
-
 node_modules/
 # .env.example
