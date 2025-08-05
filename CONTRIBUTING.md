@@ -14,6 +14,7 @@ We welcome all kinds of contributions — from code improvements and documentati
 - [Improving Documentation](#-improving-documentation)
 - [Levels](#-labels-and-levels)
 - [Community Standards](#-Community-Standards)
+- [Issue Completion Timelines](#-Issue-Completion-Timeline)
 
 ---
 
@@ -130,6 +131,22 @@ All issues are tagged to help contributors choose wisely:
 | `L-2`   | Intermediate tasks   | 5      |
 | `L-3`   | Advanced/complex     | 10     |
 
+## 🕒 Issue Completion Timeline
+
+To ensure smooth progress and timely contributions during GSSoC, we’ve defined expected completion times for issues based on their difficulty levels:
+
+| Level | Difficulty    |Expected Completion Time |
+|-------|---------------|-------------------------|
+| Level 1 | Beginner    |       **2-3 days**      |
+| Level 2 | Intermediate|       **4-6 days**      |
+| Level 3 | Advanced    |       **7-10 days**     |
+
+### 📝 Notes:
+- Please **start working only after you're assigned** the issue.
+- If you need **extra time**, feel free to ask! We’re happy to extend with valid reasons.
+- **Inactive issues** may be unassigned after the deadline, so others can work on them.
+
+💡 **Pro Tip:** Regular updates (even small ones) in the PR or issue comment help us understand your progress and support you better!
 
 **🗣️ To claim an issue**, comment:  
 `I want to work on this.`  
