@@ -128,7 +128,7 @@ All issues are tagged to help contributors choose wisely:
 | Level   | Suitable For        | Points |
 |---------|---------------------|--------|
 | `L-1`   | Beginners            | 3      |
-| `L-2`   | Intermediate tasks   | 5      |
+| `L-2`   | Intermediate tasks   | 7      |
 | `L-3`   | Advanced/complex     | 10     |
 
 ## 🕒 Issue Completion Timeline
