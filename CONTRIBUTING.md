@@ -13,9 +13,10 @@ We welcome all kinds of contributions — from code improvements and documentati
 - [Requesting Features or Enhancements](#-requesting-features-or-enhancements)
 - [Improving Documentation](#-improving-documentation)
 - [Levels](#-labels-and-levels)
-- [Community Standards](#-Community-Standards)
 - [Issue Completion Timelines](#-Issue-Completion-Timeline)
 - [Contributor Guidelines – Issue & PR Management](#-Contributor-Guidelines)
+- [Community Standards](#-Community-Standards)
+
 
 ---
 
