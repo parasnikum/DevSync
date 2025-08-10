@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Login = () => {
@@ -10,6 +10,7 @@ const Login = () => {
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -49,7 +50,7 @@ const Login = () => {
       localStorage.setItem('token', data.token);
       
       // Redirect to profile page
-      window.location.href = '/profile';
+      navigate('/profile');
     } catch (err) {
       setError(err.message || "Invalid email or password. Please try again.");
       console.error("Login error:", err);

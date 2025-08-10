@@ -16,27 +16,29 @@ import Register from "./Components/auth/Register";
 import Profile from "./Components/profile/Profile";
 import ProtectedRoute from "./Components/auth/ProtectedRoute";
 
-function App() {
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate initial app/data loading
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // adjust delay if needed
 
-    return () => clearTimeout(timer);
-  }, []);
+// function App() {
+//   const [loading, setLoading] = useState(true);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#E4ECF1]">
-        <Loader size="lg" />
-      </div>
-    );
-  }
+//   useEffect(() => {
+//     // Simulate initial app/data loading
+//     const timer = setTimeout(() => {
+//       setLoading(false);
+//     }, 2000); // adjust delay if needed
 
-}
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen flex items-center justify-center bg-[#E4ECF1]">
+//         <Loader size="lg" />
+//       </div>
+//     );
+//   }
+
+// }
 // Home component that contains the main landing page content
 function Home() {
   return (
@@ -85,6 +87,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      
       <Route 
         path="/profile" 
         element={

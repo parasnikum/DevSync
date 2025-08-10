@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Register = () => {
@@ -13,6 +13,7 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +76,7 @@ const Register = () => {
       localStorage.setItem('token', data.token);
       
       // Redirect to profile page
-      window.location.href = '/profile';
+      navigate('/profile');
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
       console.error("Registration error:", err);

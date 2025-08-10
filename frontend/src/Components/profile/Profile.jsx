@@ -248,7 +248,8 @@ const Profile = () => {
   const handleLogout = () => {
     // Clear auth token and redirect to login
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    navigate("/login");
+    // window.location.href = "/login";
   };
 
   return (

@@ -92,6 +92,7 @@ router.post('/login', [
   check('password', 'Password is required').exists()
 ], async (req, res) => {
   const errors = validationResult(req);
+  console.log("hlo")
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
