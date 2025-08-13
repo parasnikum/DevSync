@@ -2,7 +2,6 @@ name: 🧩 Request Issue Assignment
 description: Use this template to request to work on an issue
 title: "[TASK] <Short Title>"
 labels: ["level task", "needs assignment"]
-assignees: ""
 
 body:
   - type: markdown
