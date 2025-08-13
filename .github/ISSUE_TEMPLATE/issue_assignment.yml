@@ -1,4 +1,4 @@
-name: 🧩 Request Issue Assignment
+name: Request Issue Assignment
 description: Use this template to request to work on an issue
 title: "[TASK] <Short Title>"
 labels: ["level task", "needs assignment"]
@@ -15,19 +15,29 @@ body:
   - type: input
     id: discord
     attributes:
-      label: 💬 Your Discord Username (Optional)
+      label: 💬 Your Discord Username
       placeholder: e.g. johndoe123
     validations:
-      required: false
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 📌 Issue Level Information
+        | Level | Description |
+        |-------|-------------|
+        | **Level 1** | Beginner – 2-3 days |
+        | **Level 2** | Intermediate – 4-6 days |
+        | **Level 3** | Advanced – 7-10 days |
 
   - type: dropdown
-    id: level
+    id: issue_type
     attributes:
-      label: 📌 Issue Level
+      label: Issue Type
+      description: Select whether this is a bug or a feature request.
       options:
-        - Level 1 (Beginner – 2-3 days)
-        - Level 2 (Intermediate – 4-6 days)
-        - Level 3 (Advanced – 7-10 days)
+        - Bug
+        - Feature Request
     validations:
       required: true
 
@@ -44,3 +54,4 @@ body:
       value: |
         🕐 **You are expected to complete the issue in the specified time. If inactive for 3 days, it may be unassigned.**  
         📩 Need more time? Please inform the maintainer *before* it’s marked stale.
+        🧩 In case of UI enhancement and bug, please share screenshots.
