@@ -2,62 +2,36 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const Signup = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [passwordMatch, setPasswordMatch] = useState(true);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
-    
-    // Check if passwords match when either password field changes
-    if (name === "password" || name === "confirmPassword") {
-      if (name === "confirmPassword" && value !== formData.password) {
-        setPasswordMatch(false);
-      } else if (name === "password" && value !== formData.confirmPassword && formData.confirmPassword) {
-        setPasswordMatch(false);
-      } else {
-        setPasswordMatch(true);
-      }
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate password match
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordMatch(false);
-      return;
-    }
-    
     setIsLoading(true);
     setError(null);
     
     try {
-      // Call the backend API for registration
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      // Call the backend API
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password
-        }),
+        body: JSON.stringify(formData),
       });
 
       let data;
@@ -69,7 +43,7 @@ const Signup = () => {
       }
       
       if (!response.ok) {
-        throw new Error(data.errors?.[0]?.msg || 'Registration failed');
+        throw new Error(data.errors?.[0]?.msg || 'Invalid credentials');
       }
       
       // Store token in localStorage
@@ -78,8 +52,8 @@ const Signup = () => {
       // Redirect to profile page
       navigate('/profile');
     } catch (err) {
-      setError(err.message || "Registration failed. Please try again.");
-      console.error("Registration error:", err);
+      setError(err.message || "Invalid email or password. Please try again.");
+      console.error("Login error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -95,9 +69,9 @@ const Signup = () => {
       >
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-[#1D3557]">
-            Join <span className="text-[#457B9D]">DevSync</span>
+            Welcome to <span className="text-[#457B9D]">DevSync</span>
           </h1>
-          <p className="mt-2 text-lg text-[#1D3557]/80">Create your account</p>
+          <p className="mt-2 text-lg text-[#1D3557]/80">Sign in to your account</p>
         </div>
 
         {error && (
@@ -106,23 +80,7 @@ const Signup = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[#1D3557] mb-1">
-              Full Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-white/70 border border-[#C5D7E5] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#457B9D]"
-              placeholder="Enter your name"
-            />
-          </div>
-
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-[#1D3557] mb-1">
               Email
@@ -140,9 +98,14 @@ const Signup = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-[#1D3557] mb-1">
-              Password
-            </label>
+            <div className="flex justify-between items-center mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-[#1D3557]">
+                Password
+              </label>
+              <a href="#" className="text-sm text-[#457B9D] hover:underline">
+                Forgot password?
+              </a>
+            </div>
             <input
               id="password"
               name="password"
@@ -151,35 +114,14 @@ const Signup = () => {
               value={formData.password}
               onChange={handleChange}
               className="w-full px-4 py-3 bg-white/70 border border-[#C5D7E5] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#457B9D]"
-              placeholder="Create a password"
+              placeholder="Enter your password"
             />
-          </div>
-
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#1D3557] mb-1">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              required
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={`w-full px-4 py-3 bg-white/70 border ${
-                passwordMatch ? "border-[#C5D7E5]" : "border-red-500"
-              } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#457B9D]`}
-              placeholder="Confirm your password"
-            />
-            {!passwordMatch && (
-              <p className="text-red-500 text-sm mt-1">Passwords do not match</p>
-            )}
           </div>
 
           <button
             type="submit"
-            disabled={isLoading || !passwordMatch}
-            className="w-full py-3 px-4 mt-2 bg-[#457B9D] text-white font-medium rounded-lg hover:bg-[#2E5E82] transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center"
+            disabled={isLoading}
+            className="w-full py-3 px-4 bg-[#457B9D] text-white font-medium rounded-lg hover:bg-[#2E5E82] transition duration-300 flex justify-center"
           >
             {isLoading ? (
               <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -187,14 +129,14 @@ const Signup = () => {
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             ) : (
-              "Sign Up"
+              "Sign In"
             )}
           </button>
 
           <div className="text-center text-sm text-[#1D3557]">
-            Already have an account?{" "}
-            <Link to="/login" className="text-[#457B9D] font-medium hover:underline">
-              Sign in
+            Don't have an account?{" "}
+            <Link to="/register" className="text-[#457B9D] font-medium hover:underline">
+              Sign up
             </Link>
           </div>
         </form>
@@ -203,4 +145,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
