@@ -1,13 +1,16 @@
-import React from "react";
-import { Send, Cloud } from "lucide-react"; // Import Send and Cloud icons from Lucide
+import React, { useState } from "react";
+import { Send, Cloud, CheckCircle2, AlertTriangle } from "lucide-react";
 import contactFormSchema from "@/lib/schemas/contactFormSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Contact = () => {
+  const [status, setStatus] = useState(null);
+
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
     reset,
     handleSubmit,
     setError,
@@ -18,37 +21,30 @@ const Contact = () => {
     try {
       const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: JSON.stringify({ name, email, message }),
+        headers: { "Content-Type": "application/json" },
       });
+
       if (response.ok) {
         reset();
+        setStatus("success");
       } else {
+        setStatus("error");
         setError("root", {
-          message: "Something went wrong. Please try again later",
+          message: "Something went wrong. Please try again.",
         });
       }
     } catch (error) {
-      setError("root", {
-        message: "Something went wrong. Please try again later",
-      });
+      setStatus("error");
+      setError("root", { message: "Something went wrong. Please try again." });
     }
   };
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 font-inter rounded-3xl"
+      className="min-h-screen flex items-center justify-center px-4 font-inter"
       style={{ backgroundColor: "rgb(217,228,236)" }}
     >
-      {/* Removed Toaster component */}
-
-      {/* Define keyframes for animations */}
       <style>
         {`
         @keyframes float {
@@ -56,52 +52,28 @@ const Contact = () => {
           50% { transform: translateY(-8px); }
           100% { transform: translateY(0px); }
         }
-
         @keyframes drift {
           0% { transform: translateX(0); opacity: 0.8; }
           50% { transform: translateX(8px); opacity: 0.7; }
           100% { transform: translateX(0); opacity: 0.8; }
         }
-
-        @keyframes fadeInScale {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
         .animate-float-icon {
           animation: float 3s ease-in-out infinite;
         }
-
-        .animate-drift-1 {
-          animation: drift 10s ease-in-out infinite;
-        }
-        .animate-drift-2 {
-          animation: drift 12s ease-in-out infinite reverse;
-        }
-        .animate-drift-3 {
-          animation: drift 8s ease-in-out infinite;
-        }
-        .animate-drift-4 {
-          animation: drift 11s ease-in-out infinite reverse;
-        }
-        .animate-drift-5 {
-          animation: drift 9s ease-in-out infinite;
-        }
-
-        .animate-form-entry {
-          animation: fadeInScale 0.6s ease-out forwards;
-        }
+        .animate-drift-1 { animation: drift 10s ease-in-out infinite; }
+        .animate-drift-2 { animation: drift 12s ease-in-out infinite reverse; }
+        .animate-drift-3 { animation: drift 8s ease-in-out infinite; }
+        .animate-drift-4 { animation: drift 11s ease-in-out infinite reverse; }
+        .animate-drift-5 { animation: drift 9s ease-in-out infinite; }
         `}
       </style>
 
-      <div className="relative bg-white rounded-xl shadow-lg p-8 md:p-10 w-full max-w-lg flex flex-col items-center overflow-hidden animate-form-entry">
-        {/* Decorative elements: Send icon and clouds */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative bg-white rounded-xl shadow-lg p-8 md:p-10 w-full max-w-lg flex flex-col items-center overflow-hidden"
+      >
         <div className="absolute top-4 right-4 flex items-center space-x-2">
           <Send className="w-10 h-10 text-blue-500 animate-float-icon" />
           <Cloud
@@ -132,135 +104,152 @@ const Contact = () => {
           />
         </div>
 
-        {/* Form content */}
         <div className="text-center w-full z-10">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Get in Touch
-          </h1>
-          <p className="text-gray-600 mb-8">
-            We'd love to hear from you! Send us a message or reach out directly.
-          </p>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1 text-left"
+          <AnimatePresence mode="wait">
+            {!status && (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit(onSubmit)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="space-y-6"
               >
-                Your Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                {...register("name")}
-                className={`w-full px-4 py-2 border ${
-                  errors.name ? "border-red-500" : "border-gray-300"
-                } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out`}
-                placeholder="Enter your name"
-                aria-invalid={errors.name ? "true" : "false"}
-                aria-describedby="name-error"
-              />
-              {errors.name && (
-                <p
-                  id="name-error"
-                  className="mt-1 text-sm text-red-600 text-left"
-                >
-                  {errors.name.message}
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                  Get in Touch
+                </h1>
+                <p className="text-gray-600 mb-8">
+                  We'd love to hear from you! Send us a message below.
                 </p>
-              )}
-            </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1 text-left"
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                {...register("email")}
-                className={`w-full px-4 py-2 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out`}
-                placeholder="We will never share your email with anyone else"
-                aria-invalid={errors.email ? "true" : "false"}
-                aria-describedby="email-error"
-              />
-              {errors.email && (
-                <p
-                  id="email-error"
-                  className="mt-1 text-sm text-red-600 text-left"
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    {...register("name")}
+                    className={`w-full px-4 py-2 border ${
+                      errors.name ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    placeholder="Enter your name"
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-600 text-left">
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    {...register("email")}
+                    className={`w-full px-4 py-2 border ${
+                      errors.email ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    placeholder="you@example.com"
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-600 text-left">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                  >
+                    Your Message
+                  </label>
+                  <textarea
+                    id="message"
+                    {...register("message")}
+                    rows="5"
+                    className={`w-full px-4 py-2 border ${
+                      errors.message ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    placeholder="Type your message..."
+                  ></textarea>
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-600 text-left">
+                      {errors.message.message}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
                 >
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700 mb-1 text-left"
-              >
-                Your Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                {...register("message")}
-                rows="5"
-                className={`w-full px-4 py-2 border ${
-                  errors.message ? "border-red-500" : "border-gray-300"
-                } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out`}
-                placeholder="Type your message here..."
-                aria-invalid={errors.message ? "true" : "false"}
-                aria-describedby="message-error"
-              ></textarea>
-              {errors.message && (
-                <p
-                  id="message-error"
-                  className="mt-1 text-sm text-red-600 text-left"
-                >
-                  {errors.message.message}
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-            {errors.root && (
-              <p
-                id="message-error"
-                className="mt-1 text-sm text-red-600 text-left"
-              >
-                {errors.root.message}
-              </p>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </motion.form>
             )}
-            {isSubmitted && !errors.root && (
-              <p className="text-green-500">
-                We have received your message and we will get back to you soon.
-              </p>
+
+            {status === "success" && (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center justify-center py-16 space-y-4"
+              >
+                <CheckCircle2 className="w-16 h-16 text-green-500" />
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Message Sent!
+                </h2>
+                <p className="text-gray-600 max-w-sm">
+                  We’ve received your message and our team will get back to you
+                  shortly. Thank you for reaching out 🙌
+                </p>
+              </motion.div>
             )}
-          </form>
-          <p className="text-gray-500 text-sm mt-6">
-            Alternatively, email us at{" "}
-            <a
-              href="mailto:info@example.com"
-              className="text-blue-600 hover:underline"
-            >
-              info@example.com
-            </a>
-          </p>
+
+            {status === "error" && (
+              <motion.div
+                key="error"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center justify-center py-16 space-y-4"
+              >
+                <AlertTriangle className="w-16 h-16 text-red-500" />
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Something went wrong
+                </h2>
+                <p className="text-gray-600 max-w-sm">
+                  We couldn’t send your message right now. Please try again
+                  later or email us at{" "}
+                  <a
+                    href="mailto:info@example.com"
+                    className="text-blue-600 hover:underline"
+                  >
+                    info@example.com
+                  </a>
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
