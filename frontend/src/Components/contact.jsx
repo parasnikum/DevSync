@@ -7,66 +7,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const Contact = () => {
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitted },
+    reset,
     handleSubmit,
+    setError,
   } = useForm({ resolver: zodResolver(contactFormSchema) });
 
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   name: "",
-  //   message: "",
-  // });
-
-  // const [errors, setErrors] = useState({});
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  //   // Clear error for the field as user types
-  //   if (errors[name]) {
-  //     setErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       [name]: undefined,
-  //     }));
-  //   }
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   setErrors({}); // Clear previous errors
-
-  //   try {
-  //     contactFormSchema.parse(formData);
-  //     // Simulate API call
-  //     await new Promise((resolve) => setTimeout(resolve, 1000));
-  //     // Replaced toast.success with alert
-  //     alert("Message sent successfully!");
-  //     setFormData({ email: "", name: "", message: "" }); // Clear form
-  //   } catch (error) {
-  //     if (error instanceof z.ZodError) {
-  //       const newErrors = {};
-  //       error.errors.forEach((err) => {
-  //         newErrors[err.path[0]] = err.message;
-  //       });
-  //       setErrors(newErrors);
-  //       // Replaced toast.error with alert
-  //       alert("Please correct the errors in the form.");
-  //     } else {
-  //       // Replaced toast.error with alert
-  //       alert("An unexpected error occurred.");
-  //     }
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const onSubmit = async (values) => {
-    console.log(values);
+    const { name, email, message } = values;
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        reset();
+      } else {
+        setError("root", {
+          message: "Something went wrong. Please try again later",
+        });
+      }
+    } catch (error) {
+      setError("root", {
+        message: "Something went wrong. Please try again later",
+      });
+    }
   };
 
   return (
@@ -270,6 +242,11 @@ const Contact = () => {
                 className="mt-1 text-sm text-red-600 text-left"
               >
                 {errors.root.message}
+              </p>
+            )}
+            {isSubmitted && !errors.root && (
+              <p className="text-green-500">
+                We have received your message and we will get back to you soon.
               </p>
             )}
           </form>
