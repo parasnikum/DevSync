@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Send, Cloud, CheckCircle2, AlertTriangle } from "lucide-react";
+import {
+  Mail,
+  Send,
+  CheckCircle2,
+  AlertTriangle,
+  MessageCircle,
+  Clock,
+  Headphones,
+  User,
+} from "lucide-react";
 import contactFormSchema from "@/lib/schemas/contactFormSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,225 +50,199 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4 font-inter"
-      style={{ backgroundColor: "rgb(217,228,236)" }}
-    >
-      <style>
-        {`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-          100% { transform: translateY(0px); }
-        }
-        @keyframes drift {
-          0% { transform: translateX(0); opacity: 0.8; }
-          50% { transform: translateX(8px); opacity: 0.7; }
-          100% { transform: translateX(0); opacity: 0.8; }
-        }
-        .animate-float-icon {
-          animation: float 3s ease-in-out infinite;
-        }
-        .animate-drift-1 { animation: drift 10s ease-in-out infinite; }
-        .animate-drift-2 { animation: drift 12s ease-in-out infinite reverse; }
-        .animate-drift-3 { animation: drift 8s ease-in-out infinite; }
-        .animate-drift-4 { animation: drift 11s ease-in-out infinite reverse; }
-        .animate-drift-5 { animation: drift 9s ease-in-out infinite; }
-        `}
-      </style>
+    <div className="min-h-screen flex items-center justify-center px-4 font-inter bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <div className="grid md:grid-cols-2 gap-10 w-full max-w-6xl items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-white shadow-md rounded-xl p-6 flex items-center space-x-4">
+            <Mail className="w-10 h-10 text-blue-600" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">Email Us</h3>
+              <p className="text-gray-600">info@example.com</p>
+            </div>
+          </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative  bg-[#101e35] border border-[#1c2e4a]   text-white rounded-xl shadow-lg p-8 md:p-10 w-full max-w-lg flex flex-col items-center overflow-hidden"
-      >
-        <div className="absolute top-4 right-4 flex items-center space-x-2">
-          <Send className="w-10 h-10 text-blue-400 animate-float-icon" />
-          <Cloud
-            className="text-blue-50 w-8 h-8 animate-drift-1"
-            style={{ opacity: "0.6", filter: "blur(0.5px)" }}
-          />
-        </div>
-        <div className="absolute bottom-4 left-4 flex items-center space-x-2">
-          <Cloud
-            className="text-blue-50 w-6 h-6 animate-drift-2"
-            style={{ opacity: "0.5", filter: "blur(0.3px)" }}
-          />
-          <Cloud
-            className="text-blue-50 w-9 h-9 animate-drift-3"
-            style={{ opacity: "0.7", filter: "blur(0.7px)" }}
-          />
-        </div>
-        <div className="absolute top-1/2 left-2 transform -translate-y-1/2">
-          <Cloud
-            className="text-blue-50 w-7 h-7 animate-drift-4"
-            style={{ opacity: "0.6", filter: "blur(0.4px)" }}
-          />
-        </div>
-        <div className="absolute bottom-1/4 right-2 transform translate-y-1/2">
-          <Cloud
-            className="text-blue-50 w-9 h-9 animate-drift-5"
-            style={{ opacity: "0.8", filter: "blur(0.6px)" }}
-          />
-        </div>
+          <div className="bg-white shadow-md rounded-xl p-6 flex items-center space-x-4">
+            <Clock className="w-10 h-10 text-green-600" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">
+                Response Time
+              </h3>
+              <p className="text-gray-600">Within 24 hours</p>
+            </div>
+          </div>
 
-        <div className="text-center w-full z-10">
-          <AnimatePresence mode="wait">
-            {!status && (
-              <motion.form
-                key="form"
-                onSubmit={handleSubmit(onSubmit)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="space-y-6"
-              >
-                <h1 className="text-3xl font-bold text-blue-100 dark:text-neutral-100 mb-2">
-                  Get in Touch
-                </h1>
-                <p className="text-blue-50 dark:text-neutral-300 mb-8">
-                  We'd love to hear from you! Send us a message below.
-                </p>
+          <div className="bg-white shadow-md rounded-xl p-6 flex items-center space-x-4">
+            <Headphones className="w-10 h-10 text-purple-600" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">
+                24x7 Online Support
+              </h3>
+              <p className="text-gray-600">Always here to help you</p>
+            </div>
+          </div>
+        </motion.div>
 
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
-                  >
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    {...register("name")}
-                    className={`w-full px-4 py-2 border
-                      placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
-                        errors.name ? "border-red-500" : "border-gray-300"
-                      } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
-                    placeholder="Enter your name"
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-600 text-left">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-white rounded-2xl shadow-xl p-8 md:p-10 w-full z-10"
+        >
+          <div className="flex items-center justify-center mb-6 space-x-2">
+            <MessageCircle className="w-10 h-10 text-blue-600 animate-bounce" />
+            <h1 className="text-3xl font-bold text-gray-800">Contact Us</h1>
+          </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    {...register("email")}
-                    className={`w-full px-4 py-2 border  placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
-                    placeholder="you@example.com"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600 text-left">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
-                  >
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    {...register("message")}
-                    rows="5"
-                    className={`w-full px-4 py-2 border  placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
-                      errors.message ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
-                    placeholder="Type your message..."
-                  ></textarea>
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-red-600 text-left">
-                      {errors.message.message}
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-400 cursor-pointer transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isSubmitting}
+          <div className="text-center w-full z-10">
+            <AnimatePresence mode="wait">
+              {!status && (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit(onSubmit)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="space-y-6"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-                <p className="text-blue-50 text-sm dark:text-neutral-300">
-                  Alternatively, email us at{" "}
-                  <a
-                    href="mailto:info@example.com"
-                    className="text-blue-400 hover:underline"
-                  >
-                    info@example.com
-                  </a>
-                </p>
-              </motion.form>
-            )}
+                  <p className="text-gray-600 mb-4">
+                    We'd love to hear from you! Send us a message below.
+                  </p>
 
-            {status === "success" && (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col items-center justify-center py-16 space-y-4"
-              >
-                <CheckCircle2 className="w-16 h-16 text-green-400" />
-                <h2 className="text-2xl font-bold text-gray-200">
-                  Message Sent!
-                </h2>
-                <p className="text-gray-300 max-w-sm">
-                  We’ve received your message and our team will get back to you
-                  shortly. Thank you for reaching out 🙌
-                </p>
-              </motion.div>
-            )}
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <input
+                      type="text"
+                      id="name"
+                      {...register("name")}
+                      className={`w-full pl-10 pr-4 py-2 border ${
+                        errors.name ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                      placeholder="Your Name"
+                    />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600 text-left">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
 
-            {status === "error" && (
-              <motion.div
-                key="error"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col items-center justify-center py-16 space-y-4"
-              >
-                <AlertTriangle className="w-16 h-16 text-red-400" />
-                <h2 className="text-2xl font-bold text-blue-100 dark:text-neutral-100">
-                  Something went wrong
-                </h2>
-                <p className="text-blue-50 dark:text-neutral-300 max-w-sm">
-                  We couldn’t send your message right now. Please try again
-                  later or email us at{" "}
-                  <a
-                    href="mailto:info@example.com"
-                    className="text-blue-400 hover:underline"
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <input
+                      type="email"
+                      id="email"
+                      {...register("email")}
+                      className={`w-full pl-10 pr-4 py-2 border ${
+                        errors.email ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                      placeholder="you@example.com"
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600 text-left">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="relative">
+                    <MessageCircle className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <textarea
+                      id="message"
+                      {...register("message")}
+                      rows="5"
+                      className={`w-full pl-10 pr-4 py-2 border ${
+                        errors.message ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                      placeholder="Type your message..."
+                    ></textarea>
+                    {errors.message && (
+                      <p className="mt-1 text-sm text-red-600 text-left">
+                        {errors.message.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
                   >
-                    info@example.com
-                  </a>
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
+                    {isSubmitting ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" /> Send Message
+                      </>
+                    )}
+                  </button>
+
+                  <p className="text-sm text-gray-600 text-center">
+                    Alternatively, email us at{" "}
+                    <a
+                      href="mailto:info@example.com"
+                      className="text-blue-600 font-medium hover:underline"
+                    >
+                      info@example.com
+                    </a>
+                  </p>
+                </motion.form>
+              )}
+
+              {status === "success" && (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex flex-col items-center justify-center py-16 space-y-4"
+                >
+                  <CheckCircle2 className="w-16 h-16 text-green-500" />
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    Message Sent!
+                  </h2>
+                  <p className="text-gray-600 max-w-sm">
+                    We’ve received your message and our team will get back to
+                    you shortly. Thank you for reaching out 🙌
+                  </p>
+                </motion.div>
+              )}
+
+              {status === "error" && (
+                <motion.div
+                  key="error"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex flex-col items-center justify-center py-16 space-y-4"
+                >
+                  <AlertTriangle className="w-16 h-16 text-red-500" />
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    Something went wrong
+                  </h2>
+                  <p className="text-gray-600 max-w-sm">
+                    We couldn’t send your message right now. Please try again
+                    later or email us at{" "}
+                    <a
+                      href="mailto:info@example.com"
+                      className="text-blue-600 hover:underline"
+                    >
+                      info@example.com
+                    </a>
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 };
