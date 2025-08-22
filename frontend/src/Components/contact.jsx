@@ -72,34 +72,34 @@ const Contact = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative bg-white rounded-xl shadow-lg p-8 md:p-10 w-full max-w-lg flex flex-col items-center overflow-hidden"
+        className="relative  bg-[#101e35] border border-[#1c2e4a]   text-white rounded-xl shadow-lg p-8 md:p-10 w-full max-w-lg flex flex-col items-center overflow-hidden"
       >
         <div className="absolute top-4 right-4 flex items-center space-x-2">
-          <Send className="w-10 h-10 text-blue-500 animate-float-icon" />
+          <Send className="w-10 h-10 text-blue-400 animate-float-icon" />
           <Cloud
-            className="text-blue-200 w-8 h-8 animate-drift-1"
+            className="text-blue-50 w-8 h-8 animate-drift-1"
             style={{ opacity: "0.6", filter: "blur(0.5px)" }}
           />
         </div>
         <div className="absolute bottom-4 left-4 flex items-center space-x-2">
           <Cloud
-            className="text-blue-200 w-6 h-6 animate-drift-2"
+            className="text-blue-50 w-6 h-6 animate-drift-2"
             style={{ opacity: "0.5", filter: "blur(0.3px)" }}
           />
           <Cloud
-            className="text-blue-200 w-9 h-9 animate-drift-3"
+            className="text-blue-50 w-9 h-9 animate-drift-3"
             style={{ opacity: "0.7", filter: "blur(0.7px)" }}
           />
         </div>
-        <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+        <div className="absolute top-1/2 left-2 transform -translate-y-1/2">
           <Cloud
-            className="text-blue-200 w-7 h-7 animate-drift-4"
+            className="text-blue-50 w-7 h-7 animate-drift-4"
             style={{ opacity: "0.6", filter: "blur(0.4px)" }}
           />
         </div>
-        <div className="absolute bottom-1/2 right-4 transform translate-y-1/2">
+        <div className="absolute bottom-1/4 right-2 transform translate-y-1/2">
           <Cloud
-            className="text-blue-200 w-11 h-11 animate-drift-5"
+            className="text-blue-50 w-9 h-9 animate-drift-5"
             style={{ opacity: "0.8", filter: "blur(0.6px)" }}
           />
         </div>
@@ -116,17 +116,17 @@ const Contact = () => {
                 transition={{ duration: 0.4 }}
                 className="space-y-6"
               >
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                <h1 className="text-3xl font-bold text-blue-100 dark:text-neutral-100 mb-2">
                   Get in Touch
                 </h1>
-                <p className="text-gray-600 mb-8">
+                <p className="text-blue-50 dark:text-neutral-300 mb-8">
                   We'd love to hear from you! Send us a message below.
                 </p>
 
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
                   >
                     Your Name
                   </label>
@@ -134,9 +134,10 @@ const Contact = () => {
                     type="text"
                     id="name"
                     {...register("name")}
-                    className={`w-full px-4 py-2 border ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    className={`w-full px-4 py-2 border
+                      placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
+                        errors.name ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
                     placeholder="Enter your name"
                   />
                   {errors.name && (
@@ -149,7 +150,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
                   >
                     Email Address
                   </label>
@@ -157,9 +158,9 @@ const Contact = () => {
                     type="email"
                     id="email"
                     {...register("email")}
-                    className={`w-full px-4 py-2 border ${
+                    className={`w-full px-4 py-2 border  placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
                       errors.email ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
                     placeholder="you@example.com"
                   />
                   {errors.email && (
@@ -172,7 +173,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-1 text-left"
+                    className="block text-sm font-medium text-blue-100 dark:text-neutral-100 mb-1 text-left"
                   >
                     Your Message
                   </label>
@@ -180,9 +181,9 @@ const Contact = () => {
                     id="message"
                     {...register("message")}
                     rows="5"
-                    className={`w-full px-4 py-2 border ${
+                    className={`w-full px-4 py-2 border  placeholder:text-blue-50 placeholder:dark:text-neutral-300 ${
                       errors.message ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-blue-500 focus:border-blue-500 transition`}
+                    } rounded-lg focus:ring-blue-300 focus:border-blue-500 transition`}
                     placeholder="Type your message..."
                   ></textarea>
                   {errors.message && (
@@ -194,11 +195,20 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-400 cursor-pointer transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
+                <p className="text-blue-50 text-sm dark:text-neutral-300">
+                  Alternatively, email us at{" "}
+                  <a
+                    href="mailto:info@example.com"
+                    className="text-blue-400 hover:underline"
+                  >
+                    info@example.com
+                  </a>
+                </p>
               </motion.form>
             )}
 
@@ -211,11 +221,11 @@ const Contact = () => {
                 transition={{ duration: 0.5 }}
                 className="flex flex-col items-center justify-center py-16 space-y-4"
               >
-                <CheckCircle2 className="w-16 h-16 text-green-500" />
-                <h2 className="text-2xl font-bold text-gray-800">
+                <CheckCircle2 className="w-16 h-16 text-green-400" />
+                <h2 className="text-2xl font-bold text-gray-200">
                   Message Sent!
                 </h2>
-                <p className="text-gray-600 max-w-sm">
+                <p className="text-gray-300 max-w-sm">
                   We’ve received your message and our team will get back to you
                   shortly. Thank you for reaching out 🙌
                 </p>
@@ -231,16 +241,16 @@ const Contact = () => {
                 transition={{ duration: 0.5 }}
                 className="flex flex-col items-center justify-center py-16 space-y-4"
               >
-                <AlertTriangle className="w-16 h-16 text-red-500" />
-                <h2 className="text-2xl font-bold text-gray-800">
+                <AlertTriangle className="w-16 h-16 text-red-400" />
+                <h2 className="text-2xl font-bold text-blue-100 dark:text-neutral-100">
                   Something went wrong
                 </h2>
-                <p className="text-gray-600 max-w-sm">
+                <p className="text-blue-50 dark:text-neutral-300 max-w-sm">
                   We couldn’t send your message right now. Please try again
                   later or email us at{" "}
                   <a
                     href="mailto:info@example.com"
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-400 hover:underline"
                   >
                     info@example.com
                   </a>
