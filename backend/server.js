@@ -5,12 +5,32 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const passport = require("passport"); // import actual passport
+require("./config/passport"); // just execute the strategy config
+const session = require("express-session");
+
+
+
 
 // Initialize express
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "devsync_session_secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false } // set true if using HTTPS
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
