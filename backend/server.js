@@ -1,10 +1,11 @@
 // Entry point of the backend server
-require('dotenv').config();
-const dbconnection = require('./db/connection');
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const path = require('path');
+require("dotenv").config();
+const dbconnection = require("./db/connection");
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+const contactRouter = require("./routes/contact.route");
 const passport = require("passport"); // import actual passport
 require("./config/passport"); // just execute the strategy config
 const session = require("express-session");
@@ -33,27 +34,27 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Define routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/profile', require('./routes/profile'));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/profile", require("./routes/profile"));
+app.use("/api/contact", contactRouter);
 
 // Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   // Set static folder
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, "../client/build")));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 }
 
 // Route to display the initial message on browser
-app.get('/', (req, res) => {
-  res.send('DEVSYNC BACKEND API');
+app.get("/", (req, res) => {
+  res.send("DEVSYNC BACKEND API");
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
