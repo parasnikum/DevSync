@@ -9,7 +9,6 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
-    "bcryptjs": "^2.4.3",
     "clienvy": "^1.1.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -17,11 +16,10 @@
     "express": "^4.21.2",
     "express-session": "^1.18.2",
     "express-validator": "^7.0.1",
-    "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
     "multer": "^2.0.2",
-    "resend": "^6.0.1"
+    "resend": "^6.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
   },
