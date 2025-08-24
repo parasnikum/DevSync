@@ -29,10 +29,12 @@ const Contact = () => {
     const { name, email, message } = values;
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+        
         method: "POST",
         body: JSON.stringify({ name, email, message }),
         headers: { "Content-Type": "application/json" },
       });
+    
 
       if (response.ok) {
         reset();
