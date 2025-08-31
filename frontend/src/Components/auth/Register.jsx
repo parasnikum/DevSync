@@ -16,6 +16,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
+  const [showVerification, setShowVerification] = useState(false);
   const navigate = useNavigate();
 
   // Password strength checker — returns score from 0 to 4
@@ -86,14 +87,54 @@ const Register = () => {
         throw new Error(data.errors?.[0]?.msg || "Registration failed");
       }
 
-      localStorage.setItem("token", data.token);
-      navigate("/profile");
+      // Check if user needs verification or already exists and is verified
+      if (data.needsVerification) {
+        // Store userId and show verification component
+        setUserId(data.userId);
+        setShowVerification(true);
+      } else if (data.token) {
+        // User already existed and was verified - auto login
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard");
+      } else {
+        throw new Error("Unexpected response from server");
+      }
+
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
+
+
+      // localStorage.setItem("token", data.token);
+      // navigate("/profile");
+  //   } catch (err) {
+  //     setError(err.message || "Registration failed. Please try again.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const handleVerificationSuccess = (user) => {
+    // Redirect to dashboard 
+    window.location.href = '/dashboard';
+  };
+
+  const handleGoogleRegister = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
+  };
+
+  if (showVerification) {
+    return (
+      <EmailVerification
+        userId={userId}
+        email={formData.email}
+        onVerificationSuccess={handleVerificationSuccess}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#A4C7E6] flex items-center justify-center p-4 relative">
