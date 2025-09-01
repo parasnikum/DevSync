@@ -1,7 +1,10 @@
 const { sendVerificationEmail } = require('../services/emailService')
+const crypto = require("crypto");
+const jwt = require('jsonwebtoken'); // Also add this if missing
 
 // Helper function to generate verification code
 const generateVerificationCode = () => {
+  console.log("in generateVerificationCode")
   return crypto.randomInt(100000, 999999).toString();
 };
 
@@ -55,4 +58,12 @@ const handleVerificationEmail = async (email, verificationCode) => {
       throw emailError;
     }
   }
+};
+
+module.exports = {
+  generateVerificationCode,
+  generateJWT,
+  formatUserResponse,
+  setVerificationToken,
+  handleVerificationEmail
 };

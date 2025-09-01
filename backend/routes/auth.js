@@ -9,7 +9,7 @@ const crypto = require("crypto");
 require("dotenv").config();
 const passport = require("passport");
 const { sendVerificationEmail } = require("../services/emailService");
-const { generateVerificationCode, generateJWT, formatUserResponse, setVerificationToken, handleVerificationEmail } = require('../utils/emailVerificationHelpers')
+const { generateVerificationCode, generateJWT, formatUserResponse, setVerificationToken, handleVerificationEmail } = require("../utils/emailVerificationHelpers")
 
 // Helper function to generate avatar URL from email or name
 const generateAvatarUrl = (email, name) => {
@@ -103,6 +103,7 @@ router.post(
 
       // Create new user
       const avatarUrl = generateAvatarUrl(email, name);
+      console.log("before generateVerificationCode")
       const verificationCode = generateVerificationCode();
 
       user = new User({

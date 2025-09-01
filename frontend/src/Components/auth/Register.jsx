@@ -17,6 +17,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showVerification, setShowVerification] = useState(false);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   // Password strength checker — returns score from 0 to 4
