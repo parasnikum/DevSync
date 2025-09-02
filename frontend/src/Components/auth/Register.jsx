@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Eye, EyeOff, Github, ArrowLeft } from "lucide-react";
+import EmailVerification  from "../auth/EmailVerification"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -93,6 +94,7 @@ const Register = () => {
         // Store userId and show verification component
         setUserId(data.userId);
         setShowVerification(true);
+        console.log("showVerification",showVerification)
       } else if (data.token) {
         // User already existed and was verified - auto login
         localStorage.setItem("token", data.token);
