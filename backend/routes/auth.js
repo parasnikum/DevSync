@@ -90,35 +90,27 @@ router.post(
             needsVerification: true,
           });
         } else {
-          // User exists and is verified - generate token
-          try {
-            const token = await generateJWT(user.id);
-            return res.json({ token });
-          } catch (jwtError) {
-            console.error("JWT generation error:", jwtError);
-            return res.status(500).json({ errors: [{ msg: "Server error" }] });
-          }
+            return res.status(500).json({ errors: [{ msg: "User already exists. Please Sign in!!" }] });
         }
       }
 
       // Create new user
       const avatarUrl = generateAvatarUrl(email, name);
-      console.log("before generateVerificationCode")
       const verificationCode = generateVerificationCode();
+
+      // Encrypt password
+      const salt = await bcrypt.genSalt(10);
+      hashedPassword = await bcrypt.hash(password, salt);
 
       user = new User({
         name,
         email,
-        password,
+        password: hashedPassword,
         avatar: avatarUrl,
         isEmailVerified: false,
         emailVerificationToken: verificationCode,
         emailVerificationExpires: Date.now() + 15 * 60 * 1000,
       });
-
-      // Encrypt password
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
 
       await user.save();
 
@@ -274,8 +266,8 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "Invalid credentials" }] });
-      }
+          .json({ errors: [{ msg: "User not found. Please Sign up first!!" }] });
+      } 
 
       // Check password
       const isMatch = await bcrypt.compare(password, user.password);

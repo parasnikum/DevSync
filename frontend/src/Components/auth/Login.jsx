@@ -49,15 +49,15 @@ const Login = () => {
         throw new Error("Invalid server response");
       }
 
-      if (!response.ok) {
+      if (response.ok) {
          // Check if user needs email verification
         if (data.requiresVerification) {
           setUserId(data.userId);
-          setShowVerification(true);
-          return; // Don't throw error, show verification instead
+          setShowVerification(true); // Don't throw error, show verification instead
+          return; 
         }
-        throw new Error(data.errors?.[0]?.msg || "Invalid credentials");
-
+      }else{
+         throw new Error(data.errors?.[0]?.msg || "Invalid credentials")
       }
       // Successful login
       localStorage.setItem("token", data.token);

@@ -2,9 +2,11 @@ const { sendVerificationEmail } = require('../services/emailService')
 const crypto = require("crypto");
 const jwt = require('jsonwebtoken'); // Also add this if missing
 
+// Use a fallback JWT secret if env variable is missing
+const JWT_SECRET = process.env.JWT_SECRET || 'devsync_secure_jwt_secret_key_for_authentication';
+
 // Helper function to generate verification code
 const generateVerificationCode = () => {
-  console.log("in generateVerificationCode")
   return crypto.randomInt(100000, 999999).toString();
 };
 
@@ -54,9 +56,7 @@ const handleVerificationEmail = async (email, verificationCode) => {
     console.log(`Verification code for ${email}: ${verificationCode}`);
   } catch (emailError) {
     console.error("Email sending failed:", emailError);
-    if (process.env.NODE_ENV === "production") {
       throw emailError;
-    }
   }
 };
 
