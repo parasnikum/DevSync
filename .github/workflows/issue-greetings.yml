@@ -20,5 +20,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `🎉 Thank you @${context.payload.assignee.login} for picking up this issue!  
-Please make sure to follow our contributing guidelines here 👉 https://github.com/GitMetricsLab/github_tracker/blob/main/CONTRIBUTING.md`
+Please make sure to follow our contributing guidelines here 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md)`
             })
