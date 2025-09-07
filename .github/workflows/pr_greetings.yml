@@ -20,5 +20,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `🙌 Thanks @${context.payload.pull_request.user.login} for raising this PR!  
-Our team will review it soon ⏳ — meanwhile, please make sure your PR follows our contributing guidelines 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md) 🎉`
+              Our team will review it soon ⏳ — meanwhile, please make sure your PR follows our contributing guidelines 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md) 🎉`
             })
