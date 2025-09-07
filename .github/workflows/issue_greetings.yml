@@ -2,7 +2,7 @@ name: Issue Greetings
 
 on:
   issues:
-    types: [assigned]
+    types: [opened, assigned]
 
 jobs:
   greeting:
@@ -16,9 +16,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🎉 Thank you @${context.payload.assignee.login} for picking up this issue!  
-Please make sure to follow our contributing guidelines here 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md)`
+              ...context.issue,
+              body: `🎉 Thank you @${context.payload.assignee?.login || context.payload.issue.user.login} for picking up this issue!  
+            Please make sure to follow our contributing guidelines here 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md)
+            Don't forget to give this repo a 🌟
+            Happy coding !!`
             })
