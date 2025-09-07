@@ -19,5 +19,7 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: `🎉 Thank you @${context.payload.assignee?.login || context.payload.issue.user.login} for picking up this issue!  
-              Please make sure to follow our contributing guidelines here 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md)`
+              Please make sure to follow our contributing guidelines here 👉 [Contributing Guidelines](https://github.com/DevSyncx/DevSync/blob/main/CONTRIBUTING.md)
+              Happy coding !!
+              and Don't forget to give this repo a 🌟`
             })
