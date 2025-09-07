@@ -2,7 +2,7 @@
 <h1 align="center">
   <img width="64" height="64" alt="LegalHuB Logo" src="frontend/public/vite.svg"/>
   <br>
-  LegalHuB
+  DevSync
 </h1>
 
 
