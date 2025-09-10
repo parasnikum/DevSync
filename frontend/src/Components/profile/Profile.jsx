@@ -5,8 +5,6 @@ import Navbar from "../Navbar/Navbar";
 import { Camera, RefreshCw } from "lucide-react";
 import { FaGithub, FaGitlab, FaLinkedin, FaGlobe } from "react-icons/fa";
 import { SiLeetcode, SiCodechef, SiHackerrank, SiHackerearth, SiCodeforces, SiLinkedin, SiGitlab, SiGithub } from "react-icons/si";
-import { Button } from "../ui/button";
-
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -296,14 +294,15 @@ const Profile = () => {
     <div className="min-h-screen w-full bg-gradient-to-b from-[#E4ECF1] to-[#D2DEE7]">
       {/* Navbar */}
       <Navbar />
-
-      {/* Hero section with wave pattern */}
-      <div className="bg-[#1d3557] text-white py-10 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 z-10 relative">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Developer Profile</h1>
-          <p className="text-blue-200 max-w-2xl">Manage your profile, showcase your skills, and connect with other developers.</p>
-        </div>
-
+        {/* Hero section with wave pattern */}
+        <div className="bg-[#1d3557] text-white py-10 relative overflow-hidden">
+      
+      <div className="max-w-6xl mx-auto px-4 z-10 relative">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Developer Profile</h1>
+        <p className="text-blue-200 max-w-2xl">
+          Manage your profile, showcase your skills, and connect with other developers.
+        </p>
+      </div>
         {/* Wave pattern */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full">
