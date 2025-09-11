@@ -20,7 +20,7 @@ export default function Dashboard() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          setError("No token found. Please log in.");
+          navigate("/login");
           setLoading(false);
           return;
         }
