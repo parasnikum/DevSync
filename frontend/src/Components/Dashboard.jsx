@@ -8,13 +8,14 @@ import GoalsCard from "./DashBoard/GoalsCard";
 import TimeSpentCard from "./DashBoard/TimeSpentCard";
 import ActivityHeatmap from "./DashBoard/ActivityHeatMap";
 import NotesCard from "./DashBoard/NotesCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [goals, setGoals] = useState([]); // stateful goals
-
+  const navigate= useNavigate();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
