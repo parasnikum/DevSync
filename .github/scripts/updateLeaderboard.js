@@ -79,6 +79,7 @@ async function fetchAllPRsAndIssues() {
 
 async function updateGoogleSheet(contributors) {
   const auth = new google.auth.GoogleAuth({
+    keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || "./credentials.json",
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 
