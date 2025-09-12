@@ -12,10 +12,17 @@ const LEVEL_POINTS = {
   level3: 10,
 };
 
+// Normalize labels → works with "Level 1", "level-1", "LEVEL 2", etc.
+function normalizeLabel(label) {
+  return label
+    .toLowerCase()
+    .replace(/\s+/g, "")   // remove spaces
+    .replace(/-/g, "");    // remove dashes
+}
+
 async function fetchAllPRs() {
   let contributors = {};
 
-  // Fetch all closed PRs
   const prs = await octokit.paginate(octokit.rest.pulls.list, {
     owner,
     repo: repoName,
@@ -26,27 +33,19 @@ async function fetchAllPRs() {
   prs.forEach(pr => {
     if (!pr.merged_at) return; // only merged PRs
 
-    // Normalize label names to lowercase
-    const labels = pr.labels.map(l => l.name.toLowerCase());
-
-    // Find label like "level1" or "level-1"
+    const labels = pr.labels.map(l => normalizeLabel(l.name));
     let level = labels.find(l => l.startsWith("level"));
     if (!level) return;
-
-    // Normalize "level-1" → "level1"
-    level = level.replace("-", "");
 
     const points = LEVEL_POINTS[level] || 0;
     const user = pr.user.login;
 
-    if (!contributors[user]) contributors[user] = { total: 0, items: [] };
+    if (!contributors[user]) {
+      contributors[user] = { prs: [], levels: [], total: 0 };
+    }
 
-    contributors[user].items.push({
-      number: pr.number,
-      url: pr.html_url,
-      level,
-      points,
-    });
+    contributors[user].prs.push(pr.number);
+    contributors[user].levels.push(level);
     contributors[user].total += points;
   });
 
@@ -61,19 +60,14 @@ async function updateGoogleSheet(contributors) {
 
   const sheets = google.sheets({ version: "v4", auth });
 
-  // Prepare rows for sheet
-  let rows = [["Username", "PR Number", "Link", "Level", "Points", "Total Points"]];
+  let rows = [["Username", "PR Numbers", "Levels", "Total Points"]];
   for (let [user, data] of Object.entries(contributors)) {
-    data.items.forEach(item => {
-      rows.push([
-        user,
-        item.number,
-        item.url,
-        item.level,
-        item.points,
-        data.total,
-      ]);
-    });
+    rows.push([
+      user,
+      data.prs.join(", "),
+      data.levels.join(", "),
+      data.total,
+    ]);
   }
 
   await sheets.spreadsheets.values.update({
@@ -83,7 +77,7 @@ async function updateGoogleSheet(contributors) {
     requestBody: { values: rows },
   });
 
-  console.log("✅ PR Leaderboard updated!");
+  console.log("✅ Contributor Leaderboard updated!");
 }
 
 (async () => {
