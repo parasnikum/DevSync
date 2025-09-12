@@ -80,16 +80,7 @@ const Navbar = () => {
                     {item.icon}
                     {item.name}
                   </a>
-                ) : (
-                  <button
-                    key={item.name}
-                    onClick={item.action}
-                    className="flex items-center gap-2 text-[17px] font-medium text-[#2E3A59] hover:text-[#6366f1] transition duration-200 cursor-pointer bg-transparent border-none"
-                  >
-                    {item.icon}
-                    {item.name}
-                  </button>
-                )
+                ) : null
               )}
               <div className="flex items-center gap-3 ml-4">
                 {isAuthenticated ? (
@@ -141,16 +132,7 @@ const Navbar = () => {
                     {item.icon}
                     {item.name}
                   </a>
-                ) : (
-                  <button
-                    key={item.name}
-                    onClick={item.action}
-                    className="flex items-center gap-2 text-[17px] font-medium text-[#2E3A59] hover:text-[#6366f1] transition duration-200 cursor-pointer bg-transparent border-none"
-                  >
-                    {item.icon}
-                    {item.name}
-                  </button>
-                )
+                ) : null
               )}
               <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-[#C5D7E5]">
                 {isAuthenticated ? (
