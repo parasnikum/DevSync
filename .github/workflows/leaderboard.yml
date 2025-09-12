@@ -1,0 +1,31 @@
+name: Update Leaderboard
+
+on:
+  pull_request:
+    types: [closed]   # run whenever a PR is closed (merged or not)
+
+jobs:
+  update-leaderboard:
+    if: github.event.pull_request.merged == true   # only run when merged
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm install @octokit/rest googleapis
+
+      - name: Run leaderboard update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node .github/scripts/updateLeaderboard.js
