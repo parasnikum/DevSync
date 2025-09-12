@@ -1,31 +1,37 @@
 name: Update Leaderboard
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    types: [closed]   # run whenever a PR is closed (merged or not)
+    types: [closed, labeled]
+  issues:
+    types: [closed, labeled]
+  schedule:
+    - cron: "0 0 * * *"   # runs once daily at midnight
+  workflow_dispatch:       # manual trigger
 
 jobs:
   update-leaderboard:
-    if: github.event.pull_request.merged == true   # only run when merged
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install deps
-        run: npm install @octokit/rest googleapis
+      - name: Install dependencies
+        run: npm install @actions/core @actions/github googleapis
 
-      - name: Run leaderboard update
+      - name: Run leaderboard script
+        run: node .github/scripts/leaderboard.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: node .github/scripts/updateLeaderboard.js
+          GITHUB_REPO: ${{ github.repository }}
