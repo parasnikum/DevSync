@@ -1,9 +1,10 @@
-const { Octokit } = require("@octokit/rest");
+const { getOctokit } = require("@actions/github");
 const { google } = require("googleapis");
 
 const repo = process.env.GITHUB_REPO;
 const [owner, repoName] = repo.split("/");
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+// Use the GitHub Actions token
+const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
 // Points mapping
 const LEVEL_POINTS = {
@@ -16,7 +17,7 @@ async function fetchAllPRsAndIssues() {
   let contributors = {};
 
   // Fetch PRs
-  const prs = await octokit.paginate(octokit.pulls.list, {
+  const prs = await octokit.paginate(octokit.rest.pulls.list, {
     owner,
     repo: repoName,
     state: "closed",
@@ -45,7 +46,7 @@ async function fetchAllPRsAndIssues() {
   });
 
   // Fetch Issues
-  const issues = await octokit.paginate(octokit.issues.listForRepo, {
+  const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
     owner,
     repo: repoName,
     state: "closed",
