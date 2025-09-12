@@ -12,10 +12,10 @@ For detailed setup instructions, refer to the linked setup guides below.
 # -----------------------------
 
 # Port on which the application runs locally
-PORT=3000
+PORT=5000
 
 # URL of the frontend client
-CLIENT_URL=http://localhost:5000
+CLIENT_URL=http://localhost:5173
 
 # -----------------------------
 # Database Settings
@@ -45,7 +45,7 @@ GOOGLE_CLIENT_ID=<your-google-client-id>           # See [Google OAuth Setup](./
 GOOGLE_CLIENT_SECRET=<your-google-client-secret>   # See [Google OAuth Setup](./google-auth-setup.md)
 
 # Callback URL for Google OAuth redirects
-GOOGLE_CALLBACK_URL=http://localhost:3000/auth/callback   # See [Google OAuth Setup](./google-auth-setup.md)
+GOOGLE_CALLBACK_URL=http://localhost:5000/auth/callback   # See [Google OAuth Setup](./google-auth-setup.md)
 
 # -----------------------------
 # Admin & Notifications
@@ -71,3 +71,4 @@ RESEND_API_KEY=<your-resend-api-key>             # Must have full access permiss
 - For detailed setup instructions, follow the guides below:  
   - [Google OAuth Setup](./setup/google_auth_setup.md)  
   - [Resend API Setup](./setup/resend-setup.md)
+
