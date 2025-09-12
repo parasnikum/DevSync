@@ -181,7 +181,7 @@ We enforce a [Code of Conduct](./CODE_OF_CONDUCT.md) to maintain a safe, inclusi
 ## 📚 Setup Guides
 
 For detailed setup instructions, please follow the full documentation here:  
-[📄 DevSync Setup Docs](https://github.com/DevSyncx/DevSync/main/docs)
+[📄 DevSync Setup Docs](./docs)
 
  
 ## 👩‍💻 Maintainers
