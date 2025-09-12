@@ -24,7 +24,7 @@ jobs:
           node-version: 18
 
       - name: Install deps
-        run: npm install
+        run: npm install @actions/core @actions/github googleapis
 
       - name: Set up Google credentials
         run: |
