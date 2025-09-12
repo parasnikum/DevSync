@@ -3,7 +3,6 @@ const { google } = require("googleapis");
 
 const repo = process.env.GITHUB_REPO;
 const [owner, repoName] = repo.split("/");
-// Use the GitHub Actions token
 const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
 // Points mapping
@@ -13,10 +12,10 @@ const LEVEL_POINTS = {
   level3: 10,
 };
 
-async function fetchAllPRsAndIssues() {
+async function fetchAllPRs() {
   let contributors = {};
 
-  // Fetch PRs
+  // Fetch all closed PRs
   const prs = await octokit.paginate(octokit.rest.pulls.list, {
     owner,
     repo: repoName,
@@ -26,9 +25,16 @@ async function fetchAllPRsAndIssues() {
 
   prs.forEach(pr => {
     if (!pr.merged_at) return; // only merged PRs
+
+    // Normalize label names to lowercase
     const labels = pr.labels.map(l => l.name.toLowerCase());
-    const level = labels.find(l => l.startsWith("level"));
+
+    // Find label like "level1" or "level-1"
+    let level = labels.find(l => l.startsWith("level"));
     if (!level) return;
+
+    // Normalize "level-1" → "level1"
+    level = level.replace("-", "");
 
     const points = LEVEL_POINTS[level] || 0;
     const user = pr.user.login;
@@ -36,38 +42,8 @@ async function fetchAllPRsAndIssues() {
     if (!contributors[user]) contributors[user] = { total: 0, items: [] };
 
     contributors[user].items.push({
-      type: "PR",
       number: pr.number,
       url: pr.html_url,
-      level,
-      points,
-    });
-    contributors[user].total += points;
-  });
-
-  // Fetch Issues
-  const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
-    owner,
-    repo: repoName,
-    state: "closed",
-    per_page: 100,
-  });
-
-  issues.forEach(issue => {
-    if (issue.pull_request) return; // skip PRs
-    const labels = issue.labels.map(l => l.name.toLowerCase());
-    const level = labels.find(l => l.startsWith("level"));
-    if (!level) return;
-
-    const points = LEVEL_POINTS[level] || 0;
-    const user = issue.user.login;
-
-    if (!contributors[user]) contributors[user] = { total: 0, items: [] };
-
-    contributors[user].items.push({
-      type: "Issue",
-      number: issue.number,
-      url: issue.html_url,
       level,
       points,
     });
@@ -85,13 +61,12 @@ async function updateGoogleSheet(contributors) {
 
   const sheets = google.sheets({ version: "v4", auth });
 
-  // Prepare data for sheet
-  let rows = [["Username", "Type", "Number", "Link", "Level", "Points", "Total Points"]];
+  // Prepare rows for sheet
+  let rows = [["Username", "PR Number", "Link", "Level", "Points", "Total Points"]];
   for (let [user, data] of Object.entries(contributors)) {
     data.items.forEach(item => {
       rows.push([
         user,
-        item.type,
         item.number,
         item.url,
         item.level,
@@ -108,10 +83,10 @@ async function updateGoogleSheet(contributors) {
     requestBody: { values: rows },
   });
 
-  console.log("✅ Leaderboard updated!");
+  console.log("✅ PR Leaderboard updated!");
 }
 
 (async () => {
-  const contributors = await fetchAllPRsAndIssues();
+  const contributors = await fetchAllPRs();
   await updateGoogleSheet(contributors);
 })();
