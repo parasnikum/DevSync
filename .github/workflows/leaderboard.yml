@@ -25,7 +25,8 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install @actions/core @actions/github googleapis
+        run: npm install @actions/core @actions/github googleapis @octokit/rest
+
 
       - name: Run leaderboard script
         run: node .github/scripts/updateLeaderboard.js
