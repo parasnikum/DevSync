@@ -13,26 +13,28 @@ on:
   workflow_dispatch:       # manual trigger
 
 jobs:
-  update-leaderboard:
+  leaderboard:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install @actions/core @actions/github googleapis
+      - name: Install deps
+        run: npm install
 
+      - name: Set up Google credentials
+        run: |
+          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > $HOME/credentials.json
+        shell: bash
 
       - name: Run leaderboard script
-        run: node .github/scripts/updateLeaderboard.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GITHUB_REPO: ${{ github.repository }}
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/credentials.json
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+        run: node .github/scripts/updateLeaderboard.js
