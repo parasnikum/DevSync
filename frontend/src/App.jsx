@@ -9,30 +9,24 @@ import AdStrip from "./Components/Ad";
 import { FeaturesSection } from "./Components/Features";
 import Footer from "./Components/footer";
 import ScrollRevealWrapper from "./Components/ui/ScrollRevealWrapper";
-import Loader from "./Components/ui/Loader"; // ✅ Import the Loader
-
+import Loader from "./Components/ui/Loader"; 
+import Pomodoro from "./Components/DashBoard/Pomodoro"; // ✅ Pomodoro Page
 import Login from "./Components/auth/Login";
 import Register from "./Components/auth/Register";
 import Profile from "./Components/profile/Profile";
 import ProtectedRoute from "./Components/auth/ProtectedRoute";
 import Dashboard from "./Components/Dashboard";
 
+import { ArrowUp } from "lucide-react"; 
 
-// Home component that contains the main landing page content
-import { ArrowUp } from "lucide-react"; // <-- icon for back to top
-
+// ✅ Home Component
 function Home() {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowTop(true);
-      } else {
-        setShowTop(false);
-      }
+      setShowTop(window.scrollY > 300);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -42,14 +36,12 @@ function Home() {
   };
 
   return (
-
-  <div className="min-h-screen w-full bg-[var(--background)] scroll-smooth overflow-hidden">
-
+    <div className="min-h-screen w-full bg-[var(--background)] scroll-smooth overflow-hidden">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
-  <main className="relative z-10 px-4 py-24 text-[var(--foreground)]">
+      <main className="relative z-10 px-4 py-24 text-[var(--foreground)]">
         <ScrollRevealWrapper>
           <div id="home">
             <Hero />
@@ -69,6 +61,7 @@ function Home() {
         <div id="about">
           <About />
         </div>
+
         <ScrollRevealWrapper delay={0.2}>
           <div id="contact">
             <Contact />
@@ -79,28 +72,27 @@ function Home() {
       </main>
 
       {/* ✅ Back to Top Button */}
-  
-{showTop && (
-  <button
-    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-    className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 z-50 bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
-
-  >
-    <ArrowUp size={20} />
-  </button>
-)}
-
+      {showTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 z-50 bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
     </div>
   );
 }
 
+// ✅ App Component
 function App() {
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     // Simulate initial app/data loading
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // adjust delay if needed
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -111,25 +103,27 @@ function App() {
         <Loader size="lg" />
       </div>
     );
-   }
+  }
 
- 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
-      <Route 
-        path="/profile" 
+
+      <Route
+        path="/profile"
         element={
           <ProtectedRoute>
             <Profile />
           </ProtectedRoute>
-        } 
+        }
       />
+
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/pomodoro" element={<Pomodoro />} /> 
     </Routes>
   );
 }
+
 export default App;
