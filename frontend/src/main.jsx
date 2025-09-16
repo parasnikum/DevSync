@@ -10,6 +10,7 @@ import Login from './Components/auth/Login';
 import Dashboard from './Components/Dashboard';
 import TestDashboardPage from './Components/DashBoard/Test';
 import { ThemeProvider } from './Components/ui/theme-provider';
+import AllContributors from './Components/AllContributors';
 
 
 
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/test" element={<TestDashboardPage />} />
+          <Route path='/contributors' element={<AllContributors/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
