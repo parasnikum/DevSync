@@ -33,7 +33,7 @@ const ContributorsSection = () => {
   }, []);
 
   return (
-    <div className="bg-[#0B1120] text-white my-8 py-12 px-6 relative">
+    <div className="bg-[#0B1120] text-white my-8 py-12 pb-20 px-6 relative">
       <h2 className="text-3xl font-bold text-center mb-8 text-blue-400">
         🚀 Our Top Contributors
       </h2>
