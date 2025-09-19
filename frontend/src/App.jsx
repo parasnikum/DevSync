@@ -11,6 +11,8 @@ import { FeaturesSection } from "./Components/Features";
 import Footer from "./Components/footer";
 import ScrollRevealWrapper from "./Components/ui/ScrollRevealWrapper";
 import Loader from "./Components/ui/Loader"; // ✅ Import the Loader
+import ContributorsSection from "./Components/Contributors";
+import AllContributors from "./Components/AllContributors";
 
 import Login from "./Components/auth/Login";
 import Register from "./Components/auth/Register";
@@ -71,7 +73,7 @@ function Home() {
             <Contact />
           </div>
         </ScrollRevealWrapper>
-
+        <ContributorsSection/>
         <Footer />
       </main>
 
@@ -131,7 +133,8 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pomodoro" element={<Pomodoro />} />
-      </Routes>
+        <Route path='/contributors' element={<AllContributors/>}/>
+    </Routes>
     </TimerProvider>
   );
 }
