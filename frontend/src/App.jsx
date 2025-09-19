@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { TimerProvider } from "./context/TimerContext";
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar/Navbar";
 import About from "./Components/About";
@@ -16,10 +17,8 @@ import Register from "./Components/auth/Register";
 import Profile from "./Components/profile/Profile";
 import ProtectedRoute from "./Components/auth/ProtectedRoute";
 import Dashboard from "./Components/Dashboard";
-
-
-// Home component that contains the main landing page content
-import { ArrowUp } from "lucide-react"; // <-- icon for back to top
+import Pomodoro from "./Components/DashBoard/Pomodoro";
+import { ArrowUp } from "lucide-react"; 
 
 function Home() {
   const [showTop, setShowTop] = useState(false);
@@ -37,9 +36,7 @@ function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
 
@@ -90,6 +87,11 @@ function Home() {
   </button>
 )}
 
+      {showTop && (
+        <button onClick={scrollToTop} className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 z-50 bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]">
+          <ArrowUp size={20} />
+        </button>
+      )}
     </div>
   );
 }
@@ -114,22 +116,23 @@ function App() {
    }
 
  
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
+      <Loader size="lg" />
+    </div>
+  );
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      
-      <Route 
-        path="/profile" 
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } 
-      />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
+    <TimerProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/pomodoro" element={<Pomodoro />} />
+      </Routes>
+    </TimerProvider>
   );
 }
 export default App;
