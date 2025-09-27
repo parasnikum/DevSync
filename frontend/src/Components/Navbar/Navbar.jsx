@@ -1,17 +1,17 @@
 // src/Components/Navbar/Navbar.jsx
 import React, { useEffect, useState } from "react";
-import { UserCircle, Clock } from "lucide-react";
+import { UserCircle, Clock, Home, Sparkle, Info, Github, Phone } from "lucide-react";
 import { FloatingNav } from "../ui/floating-navbar";
 import { Link, useNavigate } from "react-router-dom";
 import DarkModeToggle from "../ui/DarkModeToggle";
 import { useTimer } from "../../context/TimerContext";
 
 const publicNavItems = [
-  { name: "Home", link: "/", icon: null },
-  { name: "Features", link: "#features", icon: null },
-  { name: "About us", link: "#about", icon: null },
-  { name: "Github", link: "https://github.com/DevSyncx/DevSync.git", icon: null },
-  { name: "Contact Us", link: "#contact", icon: null },
+  { name: "Home", link: "/", icon: <Home className="h-4 w-4" /> },
+  { name: "Features", link: "#features", icon: <Sparkle className="h-4 w-4" /> },
+  { name: "About us", link: "#about", icon: <Info className="h-4 w-4" /> },
+  { name: "Github", link: "https://github.com/DevSyncx/DevSync.git", icon: <Github className="h-4 w-4" /> },
+  { name: "Contact Us", link: "#contact", icon: <Phone className="h-4 w-4" /> },
 ];
 
 const Navbar = () => {
